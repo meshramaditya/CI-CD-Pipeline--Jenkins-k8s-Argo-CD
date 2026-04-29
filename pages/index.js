@@ -26,10 +26,7 @@ export default function Login(){
   return (
     <div className="container">
       <div className="login-card">
-<<<<<<< HEAD
         <h2>Blue Cube 🍵 — Admin Login 🔑</h2>
-=======
->>>>>>> 35716e8 (add icon in login)
         <p className="small-muted">Enter ID and password to manage orders and billing</p>
         <form onSubmit={handleSubmit}>
           <label className="small-muted">ID</label>
