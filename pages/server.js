@@ -1,1 +1,3 @@
-<h1>Blue Cube Cafe</h1>
+<div>
+    <p>Server Page</p>
+</div>
