@@ -20,10 +20,5 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                echo "Deploy step (optional)"
-            }
-        }
     }
 }
