@@ -35,7 +35,8 @@ function makeSeedOrders(){
     ['BC-10231', 'Drive-thru', 'Aric Asuncion', 'In-Progress', 12],
     ['BC-10232', 'Curb-side', 'Niki Holmes', 'Pending', 25.39],
     ['BC-10233', 'Delivery', 'Jennie Swain', 'Scheduled', 50.05],
-    ['BC-10234', 'Pickup', 'Julia Franco', 'Dispatched', 32.7]
+    ['BC-10234', 'Pickup', 'Julia Franco', 'Dispatched', 32.7],
+    ['BC-10235', 'Dine-in', 'Kevin Lee', 'Completed', 18.2],
   ]
   return base.map((row, idx) => ({
     id: row[0],
