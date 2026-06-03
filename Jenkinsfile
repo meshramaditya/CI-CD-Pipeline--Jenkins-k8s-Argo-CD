@@ -42,9 +42,9 @@ pipeline {
                 sh '''
                     VALUES_PATH=gitops/react-app/values.yaml
                     if [ -f "$VALUES_PATH" ]; then
-                        sed -i "s/^\s*tag:.*/tag: \"$IMAGE_TAG\"/" "$VALUES_PATH" || true
+                        sed -i 's/^ *tag:.*/tag: "'"$IMAGE_TAG"'"/' "$VALUES_PATH" || true
                     else
-                        mkdir -p "$(dirname \"$VALUES_PATH\")"
+                        mkdir -p "$(dirname "$VALUES_PATH")"
                         cat > "$VALUES_PATH" <<EOF
 image:
     repository: $IMAGE
