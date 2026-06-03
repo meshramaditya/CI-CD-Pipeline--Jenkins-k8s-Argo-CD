@@ -33,6 +33,7 @@ spec:
     stage('Checkout') {
       steps {
         checkout scm
+        sh 'git config --global --add safe.directory "$WORKSPACE" || true'
       }
     }
 
@@ -66,7 +67,7 @@ spec:
 EOF
               /kaniko/executor \
                 --context=dir://$WORKSPACE/Frontend \
-                --dockerfile=$WORKSPACE/Frontend/dockerfile \
+                --dockerfile=dockerfile \
                 --destination=$IMAGE:$IMAGE_TAG \
                 --destination=$IMAGE:latest
             '''
@@ -127,6 +128,7 @@ EOF
   post {
     always {
       container('git') {
+        sh 'git config --global --add safe.directory "$WORKSPACE" || true'
         sh 'git status --short || true'
       }
     }
