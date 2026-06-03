@@ -7,3 +7,6 @@ npm-debug.log
 .git
 Dockerfile
 dockerfile
+Jenkinsfile
+deployment.yaml
+README.md
