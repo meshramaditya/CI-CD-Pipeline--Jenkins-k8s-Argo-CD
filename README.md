@@ -1,9 +1,9 @@
 Project Title
 # End-to-End GitOps CI/CD Pipeline on AWS EKS using Jenkins, ArgoCD, Docker, Helm & Kubernetes
-
-Architecture Diagram
-
-
+---------------------------------------------------
+# Architecture Diagram
+<img width="2816" height="1536" alt="Architecture" src="https://github.com/user-attachments/assets/ef47ba4a-52c2-46d4-939d-18ed567dfd3a" />
+---------------------------------------------------
 Project Objective
 
 This project demonstrates a complete GitOps-based CI/CD pipeline for a React/Next.js application deployed on AWS EKS.
@@ -18,7 +18,7 @@ The pipeline automatically:
 - Triggers ArgoCD synchronization
 - Deploys the latest version to Kubernetes
 
-
+-----------------------------------------------
 Technologies Used
 
 ## Technologies
@@ -34,7 +34,7 @@ Technologies Used
 - Kaniko
 - React / Next.js
 
-
+---------------------------------------------
 Challenges Solved
 
 ## Challenges Faced and Solutions
@@ -69,11 +69,12 @@ Fixed YAML syntax and Helm chart configuration.
 GitHub 403 Push Error
 
 Problem:
-Jenkins could not push changes to GitOps repository.
+Jenkins could not push changes to the GitOps repository.
 
 Solution:
 Configured GitHub PAT with repository permissions.
 
+--------------------------------------------------------
 Screenshots Section
 
 ## 1. EKS Cluster Creation
@@ -91,7 +92,7 @@ Screenshots Section
 
 ## 7. Application Running on AWS LoadBalancer
 
-
+-------------------------------------------------------
 Key DevOps Skills Demonstrated
 
 ## Skills Demonstrated
