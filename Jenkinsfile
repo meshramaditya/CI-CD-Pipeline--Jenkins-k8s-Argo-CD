@@ -30,7 +30,6 @@ spec:
   environment {
     IMAGE = 'adityameshram/react-demo'
     IMAGE_TAG = "${BUILD_NUMBER}"
-    APP_DIR = ''
     GITOPS_DIR = 'gitops-repo'
     GITOPS_VALUES_REL = 'react-app/values.yaml'
   }
@@ -45,37 +44,26 @@ spec:
       }
     }
 
-    stage('Resolve App Path') {
-      steps {
-        container('git') {
-          script {
-            env.APP_DIR = sh(
-              script: '''
-                if [ -f "$WORKSPACE/Frontend/package.json" ]; then
-                  echo Frontend
-                elif [ -f "$WORKSPACE/package.json" ]; then
-                  echo .
-                else
-                  echo "ERROR: package.json not found in Frontend/ or repo root" >&2
-                  exit 1
-                fi
-              ''',
-              returnStdout: true
-            ).trim()
-          }
-        }
-      }
-    }
-
     stage('Debug Workspace') {
       steps {
         container('git') {
           sh '''
+            set -eu
             echo "WORKSPACE=$WORKSPACE"
-            echo "APP_DIR=$APP_DIR"
+
+            if [ -f "$WORKSPACE/Frontend/package.json" ]; then
+              APP_PATH="$WORKSPACE/Frontend"
+            elif [ -f "$WORKSPACE/package.json" ]; then
+              APP_PATH="$WORKSPACE"
+            else
+              echo "ERROR: package.json not found in Frontend/ or repo root" >&2
+              exit 1
+            fi
+
+            echo "APP_PATH=$APP_PATH"
             pwd
             ls -la
-            ls -la "$WORKSPACE/$APP_DIR"
+            ls -la "$APP_PATH"
             find "$WORKSPACE" -maxdepth 3 -iname 'dockerfile' -o -name 'package.json' | sort
           '''
         }
@@ -85,9 +73,18 @@ spec:
     stage('Install') {
       steps {
         container('node') {
-          dir("${env.APP_DIR}") {
-            sh 'npm ci'
-          }
+          sh '''
+            set -eu
+            if [ -f "$WORKSPACE/Frontend/package.json" ]; then
+              cd "$WORKSPACE/Frontend"
+            elif [ -f "$WORKSPACE/package.json" ]; then
+              cd "$WORKSPACE"
+            else
+              echo "ERROR: package.json not found in Frontend/ or repo root" >&2
+              exit 1
+            fi
+            npm ci
+          '''
         }
       }
     }
@@ -99,9 +96,13 @@ spec:
             sh '''
               set -eu
 
-              APP_PATH="$WORKSPACE/$APP_DIR"
-              if [ "$APP_DIR" = "." ]; then
+              if [ -f "$WORKSPACE/Frontend/package.json" ]; then
+                APP_PATH="$WORKSPACE/Frontend"
+              elif [ -f "$WORKSPACE/package.json" ]; then
                 APP_PATH="$WORKSPACE"
+              else
+                echo "ERROR: package.json not found in Frontend/ or repo root" >&2
+                exit 1
               fi
 
               if [ -f "$APP_PATH/dockerfile" ]; then
