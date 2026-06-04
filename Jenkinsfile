@@ -61,6 +61,9 @@ spec:
           withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
             sh '''
               mkdir -p /kaniko/.docker
+              test -f "$WORKSPACE/Frontend/dockerfile"
+              test -f "$WORKSPACE/Frontend/package.json"
+              test -f "$WORKSPACE/Frontend/package-lock.json"
               AUTH="$(printf '%s:%s' "$DOCKER_USER" "$DOCKER_PASS" | base64 | tr -d '\n')"
               cat > /kaniko/.docker/config.json <<EOF
 {"auths":{"https://index.docker.io/v1/":{"auth":"$AUTH"}}}

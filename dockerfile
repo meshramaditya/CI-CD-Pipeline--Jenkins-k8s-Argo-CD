@@ -1,6 +1,6 @@
 FROM node:18-bullseye-slim AS deps
 WORKDIR /app
-COPY package*.json ./
+COPY package.json package-lock.json ./
 RUN npm install --silent
 
 FROM node:18-bullseye-slim AS builder
