@@ -32,6 +32,7 @@ function money(value){
 
 function makeSeedOrders(){
   const base = [
+    ['BC-10230', 'makr-thru', 'Arina Manson', 'completed', 45.5],
     ['BC-10231', 'Drive-thru', 'Aric Asuncion', 'In-Progress', 12],
     ['BC-10232', 'Curb-side', 'Niki Holmes', 'Pending', 25.39],
     ['BC-10233', 'Delivery', 'Jennie Swain', 'Scheduled', 50.05],
