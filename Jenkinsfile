@@ -25,7 +25,6 @@ spec:
 
   options {
     skipDefaultCheckout(true)
-    timestamps()
   }
 
   environment {
